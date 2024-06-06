@@ -336,7 +336,7 @@ class Tetris {
   }
 }
 
-const tetris = new Tetris({ speed: 200 });
+const tetris = new Tetris({ speed: 500 });
 window.addEventListener("load", () => tetris.reset());
 window.addEventListener("keydown", (event) => {
   switch (event.key) {
