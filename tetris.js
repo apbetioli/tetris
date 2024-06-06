@@ -1,106 +1,5 @@
 const EMPTY = "#222";
 
-class Tetromino {
-  constructor(shape = [[]]) {
-    this.shape = shape;
-    this.position = {
-      x: 5, //mid screen
-      y: -this.shape.length,
-    };
-  }
-
-  rotateClockwise() {
-    const newShape = [];
-    for (let scol = 0; scol < this.shape[0].length; scol++) {
-      const row = [];
-      for (let srow = this.shape.length - 1; srow >= 0; srow--) {
-        row.push(this.shape[srow][scol]);
-      }
-      newShape.push(row);
-    }
-    this.shape = newShape;
-  }
-
-  rotateCounterClockwise() {
-    const newShape = [];
-    for (let scol = this.shape[0].length - 1; scol >= 0; scol--) {
-      const row = [];
-      for (let srow = 0; srow < this.shape.length; srow++) {
-        row.push(this.shape[srow][scol]);
-      }
-      newShape.push(row);
-    }
-    this.shape = newShape;
-  }
-}
-
-class I extends Tetromino {
-  constructor() {
-    const COLOR = "lightblue";
-    super([[COLOR, COLOR, COLOR, COLOR]]);
-  }
-}
-
-class O extends Tetromino {
-  constructor() {
-    const COLOR = "yellow";
-    super([
-      [COLOR, COLOR],
-      [COLOR, COLOR],
-    ]);
-  }
-}
-
-class J extends Tetromino {
-  constructor() {
-    const COLOR = "blue";
-    super([
-      [COLOR, EMPTY, EMPTY],
-      [COLOR, COLOR, COLOR],
-    ]);
-  }
-}
-
-class L extends Tetromino {
-  constructor() {
-    const COLOR = "orange";
-    super([
-      [EMPTY, EMPTY, COLOR],
-      [COLOR, COLOR, COLOR],
-    ]);
-  }
-}
-
-class Z extends Tetromino {
-  constructor() {
-    const COLOR = "red";
-    super([
-      [COLOR, COLOR, EMPTY],
-      [EMPTY, COLOR, COLOR],
-    ]);
-  }
-}
-
-class S extends Tetromino {
-  constructor() {
-    const COLOR = "green";
-    super([
-      [EMPTY, COLOR, COLOR],
-      [COLOR, COLOR, EMPTY],
-    ]);
-  }
-}
-
-class T extends Tetromino {
-  constructor() {
-    const COLOR = "purple";
-    super([
-      [EMPTY, COLOR, EMPTY],
-      [COLOR, COLOR, COLOR],
-    ]);
-  }
-}
-
 export class Tetris {
   #observers = {};
   #points = 0;
@@ -133,6 +32,19 @@ export class Tetris {
 
     this.#notify("pointschanged", 0);
     this.#notify("reset");
+  }
+
+  update() {
+    this.#nextTick();
+    this.#render();
+
+    if (this.timeoutId) [clearTimeout(this.timeoutId)];
+
+    if (!this.gameOver) {
+      this.timeoutId = setTimeout(() => {
+        this.update();
+      }, this.speed);
+    }
   }
 
   left() {
@@ -213,19 +125,6 @@ export class Tetris {
           return true;
         }
       }
-    }
-  }
-
-  update() {
-    this.#nextTick();
-    this.#render();
-
-    if (this.timeoutId) [clearTimeout(this.timeoutId)];
-
-    if (!this.gameOver) {
-      this.timeoutId = setTimeout(() => {
-        this.update();
-      }, this.speed);
     }
   }
 
@@ -334,5 +233,106 @@ export class Tetris {
       return false;
     }
     return true;
+  }
+}
+
+class Tetromino {
+  constructor(shape = [[]]) {
+    this.shape = shape;
+    this.position = {
+      x: 5, //mid screen
+      y: -this.shape.length,
+    };
+  }
+
+  rotateClockwise() {
+    const newShape = [];
+    for (let scol = 0; scol < this.shape[0].length; scol++) {
+      const row = [];
+      for (let srow = this.shape.length - 1; srow >= 0; srow--) {
+        row.push(this.shape[srow][scol]);
+      }
+      newShape.push(row);
+    }
+    this.shape = newShape;
+  }
+
+  rotateCounterClockwise() {
+    const newShape = [];
+    for (let scol = this.shape[0].length - 1; scol >= 0; scol--) {
+      const row = [];
+      for (let srow = 0; srow < this.shape.length; srow++) {
+        row.push(this.shape[srow][scol]);
+      }
+      newShape.push(row);
+    }
+    this.shape = newShape;
+  }
+}
+
+class I extends Tetromino {
+  constructor() {
+    const COLOR = "lightblue";
+    super([[COLOR, COLOR, COLOR, COLOR]]);
+  }
+}
+
+class O extends Tetromino {
+  constructor() {
+    const COLOR = "yellow";
+    super([
+      [COLOR, COLOR],
+      [COLOR, COLOR],
+    ]);
+  }
+}
+
+class J extends Tetromino {
+  constructor() {
+    const COLOR = "blue";
+    super([
+      [COLOR, EMPTY, EMPTY],
+      [COLOR, COLOR, COLOR],
+    ]);
+  }
+}
+
+class L extends Tetromino {
+  constructor() {
+    const COLOR = "orange";
+    super([
+      [EMPTY, EMPTY, COLOR],
+      [COLOR, COLOR, COLOR],
+    ]);
+  }
+}
+
+class Z extends Tetromino {
+  constructor() {
+    const COLOR = "red";
+    super([
+      [COLOR, COLOR, EMPTY],
+      [EMPTY, COLOR, COLOR],
+    ]);
+  }
+}
+
+class S extends Tetromino {
+  constructor() {
+    const COLOR = "green";
+    super([
+      [EMPTY, COLOR, COLOR],
+      [COLOR, COLOR, EMPTY],
+    ]);
+  }
+}
+
+class T extends Tetromino {
+  constructor() {
+    const COLOR = "purple";
+    super([
+      [EMPTY, COLOR, EMPTY],
+      [COLOR, COLOR, COLOR],
+    ]);
   }
 }
