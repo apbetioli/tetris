@@ -113,6 +113,8 @@ export class Tetris {
     canvas.setAttribute("height", lines * size);
 
     this.ctx = canvas.getContext("2d");
+
+    this.reset();
   }
 
   addObserver(event, callback) {

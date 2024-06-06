@@ -1,38 +1,40 @@
 import { Tetris } from "./tetris.js";
 
-const canvas = document.getElementById("canvas");
+window.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.getElementById("canvas");
 
-const tetris = new Tetris(canvas);
-window.addEventListener("load", () => tetris.reset());
-window.addEventListener("keydown", (event) => {
-  switch (event.key) {
-    case "ArrowLeft":
-      tetris.left();
-      break;
-    case "ArrowRight":
-      tetris.right();
-      break;
-    case "ArrowUp":
-      tetris.up();
-      break;
-    case "ArrowDown":
-      tetris.down();
-      break;
-  }
-});
+  const tetris = new Tetris(canvas);
 
-tetris.addObserver("pointschanged", (data) => {
-  document.querySelector("#points").textContent = data;
-});
+  window.addEventListener("keydown", (event) => {
+    switch (event.key) {
+      case "ArrowLeft":
+        tetris.left();
+        break;
+      case "ArrowRight":
+        tetris.right();
+        break;
+      case "ArrowUp":
+        tetris.up();
+        break;
+      case "ArrowDown":
+        tetris.down();
+        break;
+    }
+  });
 
-tetris.addObserver("gameover", () => {
-  document.querySelector("#gameover").removeAttribute("hidden");
-});
+  tetris.addObserver("pointschanged", (data) => {
+    document.querySelector("#points").textContent = data;
+  });
 
-tetris.addObserver("reset", () => {
-  document.querySelector("#gameover").setAttribute("hidden", true);
-});
+  tetris.addObserver("gameover", () => {
+    document.querySelector("#gameover").removeAttribute("hidden");
+  });
 
-document.querySelector("#resetButton").addEventListener("click", () => {
-  tetris.reset();
+  tetris.addObserver("reset", () => {
+    document.querySelector("#gameover").setAttribute("hidden", true);
+  });
+
+  document.querySelector("#resetButton").addEventListener("click", () => {
+    tetris.reset();
+  });
 });
