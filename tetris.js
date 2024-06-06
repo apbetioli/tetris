@@ -105,11 +105,10 @@ export class Tetris {
   #observers = {};
   #points = 0;
 
-  constructor(config = {}) {
-    this.config = { size: 20, columns: 12, lines: 21, speed: 1000, ...config };
+  constructor(canvas, config = {}) {
+    this.config = { size: 20, columns: 12, lines: 21, speed: 500, ...config };
     const { size, columns, lines } = this.config;
 
-    this.canvas = document.getElementById("canvas");
     canvas.setAttribute("width", columns * size);
     canvas.setAttribute("height", lines * size);
 

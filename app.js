@@ -1,6 +1,8 @@
 import { Tetris } from "./tetris.js";
 
-const tetris = new Tetris({ speed: 500 });
+const canvas = document.getElementById("canvas");
+
+const tetris = new Tetris(canvas);
 window.addEventListener("load", () => tetris.reset());
 window.addEventListener("keydown", (event) => {
   switch (event.key) {
