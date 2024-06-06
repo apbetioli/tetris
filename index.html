@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tetris</title>
+    <script src="app.js" defer></script>
+    <style>
+      body {
+        background-color: black;
+        color: white;
+        text-align: center;
+      }
+      #gameover {
+        font-size: large;
+      }
+      #resetButton {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>TETRIS</h1>
+    <p>POINTS: <span id="points">0</span></p>
+    <canvas id="canvas" width="120" height="210"></canvas>
+    <p id="gameover" hidden>GAME OVER</p>
+    <div>
+      <button id="resetButton">Reset</button>
+    </div>
+  </body>
+</html>
